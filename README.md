@@ -1,36 +1,38 @@
+<div align="center">
+
 # MixEdit: Revisiting Data Augmentation and Beyond for Grammatical Error Correction
 
 </div>
 
 The repository contains the codes and data for our EMNLP-2023 Paper: [MixEdit: Revisiting Data Augmentation and Beyond for Grammatical Error Correction](https://arxiv.org/abs/2310.11671).
 
-## 1 Overview
+# 1 Overview
 
 MixEdit is a data augmentation approach that *strategically* and *dynamically* augments realistic data, without requiring extra monolingual corpora.
 
 ![Figure 1](./img/MixEdit.svg)
 
-## 2 Features
+# 2 Features
 
 - We open-source **training** and **inference** pipelines of GEC models equipped with MixEdit in English and Chinese. Well-trained checkpoints are also released.
 - We incorporate four kinds of traditional data augmentation methods discussed in the paper, including Direct Noise (DN), Pattern Noise (PN), Back-Translation (BT) and Round Translation (RT).
 - We open-source the toolkit used for computing **Affinity** and **Diversity**, which reveal two core perspectives of GEC data augmentation.
 
-## 3 Requirements and Installation
+# 3 Requirements and Installation
 
 - Python version >= 3.7
 
 - `fairseq` == 0.12.2
 - `transformers` >= 4.28.1
 
-### Clone this repository
+## Clone this repository
 
 ```bash
 git clone https://github.com/THUKElab/MixEdit.git
 cd ./MixEdit
 ```
 
-### Description of Codes
+## Description of Codes
 
 ```python
 MixEdit                             # Root
@@ -54,29 +56,29 @@ MixEdit                             # Root
 └── utils.py                        # Some tools
 ```
 
-## 4 Datasets
+# 4 Datasets
 
-### 4.1 Preprocess Datasets for Fairseq Training
+## Preprocess Datasets
 
 You can directly download the preprocessed binary English and Chinese data files from this [Link](https://cloud.tsinghua.edu.cn/f/f247138bf51b41d78126/). Then, unzip the `preprocess.tar` in `MixEdit/models/bart/preprocess`. **Note that you must get their licenses first!**
 
 If you want to train new models using your own datasets, please follow the instructions in `scripts/fairseq`.
 
-### 4.2 Data Augmentation
+## Data Augmentation
 
 Traditional GEC data augmentation methods generate pseudo parallel data by corrupting seed corpus.
 
-![Table 1](./img/Tab 1.png)
+![Figure 2](./img/Tab1.png)
 
-#### 4.2.1 Direct Noise (DN)
+### Direct Noise (DN)
 
 Direct Noise (DN) injects noise into grammatically correct sentences in a rule-based manner [(Kiyono et al., 2020)](https://github.com/butsugiri/gec-pseudodata). The noise can take the form of 1) masking, 2) deletion, and 3) insertion based on pre-defined probabilities.
 
-#### 4.2.2 Pattern Noise (PN)
+### Pattern Noise (PN)
 
 Pattern Noise (PN) involves injecting grammatical errors that are already present in the realistic GEC dataset into sentences [(Choe et al., 2019)](https://github.com/kakaobrain/helo-word).
 
-#### 4.2.3 Back-Translation (BT)
+### Back-Translation (BT)
 
 Back-Translation (BT) generates more genuine grammatical errors by learning the distribution of human written grammatical errors (Xie et al., 2018). The noisy model is trained with the inverse of GEC parallel dataset, where ungrammatical sentence are treated as the target and grammatical ones as the source.
 
@@ -92,13 +94,13 @@ We provide trained noisy models for convenience, so that you can skip the first 
 | [**BT-eng**](https://cloud.tsinghua.edu.cn/f/77ac291bc4f44c198b73/) | English Back-Translation Model based on BART-Large | CLang-8       |
 | [**BT-zho**](https://cloud.tsinghua.edu.cn/f/85de9d85eb4647c5a7fa/) | Chinese Back-Translation Model based on BART-Large | HSK + Lang8   |
 
-#### 4.2.4 Round-Translation (RT)
+### Round-Translation (RT)
 
 Round-Translation (RT) is an alternative method to generate pseudo data, which is based on the assumption that NMT systems may produce translation errors, resulting in noisy outputs via the bridge languages (Lichtarge et al., 2019; Zhou et al., 2020). The diverse outputs, however, may change the structure of the sentence due to the heterogeneity of different languages.
 
 We implement RT in `MixEdit/augmenters/round_translation.py` by leveraging off-the-shelf en-zh and zh-en translation models (Tiedemann and Thottingal, 2020).
 
-## 5 Affinity and Diversity
+# 5 Affinity and Diversity
 
 Affinity and Diversity are two low-cost and effective measures for analyzing GEC data augmentation methods.
 
@@ -131,29 +133,29 @@ print(f"Dataset Diversity: of ref: {round(diveristy_ref, 4)}")
 print(f"Dataset Diversity: of hyp: {round(diveristy_hyp, 4)}")
 ```
 
-## 6 Model Training and Inference
+# 6 Model Training and Inference
 
-### 6.1 Checkpoints
+## Checkpoints
 
 If you are freshman to train models in `fairseq`, I recommend to first get familiar to the inference pipeline through the following converged checkpoints.
 
 We report development performance indicated by Precision / Recall / $F_{0.5}$.
 
-#### English Checkpoints
+### English Checkpoints
 
 | Model Name                                                   | Description                        | BEA19-Dev                 |
 | ------------------------------------------------------------ | ---------------------------------- | ------------------------- |
 | [**BART Baseline**](https://cloud.tsinghua.edu.cn/f/2548a95171b14ea69cd2/) | Baseline Model based on BART-Large | 64.47 / 47.45 / 60.15     |
 | [**BART MixEdit**](https://cloud.tsinghua.edu.cn/f/a74ba8c77650427db827/) | MixEdit Model based on BART-Large  | 67.05 / 47.18 / **61.84** |
 
-#### Chinese Checkpoints
+### Chinese Checkpoints
 
 | Model Name                                                   | Description                        | MuCGEC-Dev                |
 | ------------------------------------------------------------ | ---------------------------------- | ------------------------- |
 | [**BART Baseline**](https://cloud.tsinghua.edu.cn/f/d40ba8c4e856493eb743/) | Baseline Model based on BART-Large | 51.83 / 28.32 / 44.45     |
 | [**BART MixEdit**](https://cloud.tsinghua.edu.cn/f/7a205e791995428dab6b/) | MixEdit Model based on BART-Large  | 52.42 / 27.91 / **44.59** |
 
-### 6.2 Pre-trained models
+## Pre-trained models
 
 If you want to train GEC models from scratch, you should first download pre-trained BART models (English only).
 
@@ -166,7 +168,7 @@ If you want to train GEC models from scratch, you should first download pre-trai
 
 **Note**: `models/trainer.py` can automatically download Chinese BART model, so you needn't download in advance.
 
-### 6.3 Training
+## Training
 
 > If you have downloaded our released checkpoints and not plan to train models from scratch, please skip this section.
 
@@ -176,13 +178,13 @@ If you want to train new models using your own dataset, please follow the instru
 2. `./models/train.py`: train Baseline & MixEdit models.
 3. `./scripts/fairseq/eng/predict.sh`: inference and evaluate GEC models.
 
-### 6.4 Inference and Evaluate
+## Inference and Evaluate
 
 Follow the instructions in `./scripts/*/predict.sh` to inference and evaluate GEC models. Some post-process handling is necessary for improved performance. Please refer to `./scripts/*/predict.sh` for more details.
 
 We do not provide evaluation codes of [ChERRANT](https://github.com/HillZhang1999/MuCGEC) and [MaxMatch](http://www.comp.nus.edu.sg/∼nlp/software.html), please download them from their official links.
 
-## Citation
+# Citation
 
 If you think our work is helpful, please cite our paper:
 
@@ -197,11 +199,11 @@ If you think our work is helpful, please cite our paper:
 }
 ```
 
-## Contact & Feedback
+# Contact & Feedback
 
 If you have any questions or feedbacks, please send e-mails to ours: yejh22@mails.tsinghua.edu.cn, liyinghu20@mails.tsinghua.edu.cn.
 
-## References
+# References
 
 1. Shun Kiyono, Jun Suzuki, Tomoya Mizumoto, and Kentaro Inui. 2020. Massive exploration of pseudo data for grammatical error correction. *IEEE/ACM transactions on audio, speech, and language processing*, 28:2134–2145.
 2. Yo Joong Choe, Jiyeon Ham, Kyubyong Park, and Yeoil Yoon. 2019. A neural grammatical error correction system built on better pre-training and sequential transfer learning. In *Proceedings of the Fourteenth Workshop on Innovative Use of NLP for Building Educational Applications*, pages 213–227, Florence, Italy. Association for Computational Linguistics.
