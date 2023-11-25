@@ -8,7 +8,7 @@ The repository contains the codes and data for our EMNLP-2023 Paper: [MixEdit: R
 
 MixEdit is a data augmentation approach that *strategically* and *dynamically* augments realistic data, without requiring extra monolingual corpora.
 
-![Figure 1](img\MixEdit.svg)
+![Figure 1](./img/MixEdit.svg)
 
 ## 2 Features
 
@@ -66,7 +66,7 @@ If you want to train new models using your own datasets, please follow the instr
 
 Traditional GEC data augmentation methods generate pseudo parallel data by corrupting seed corpus.
 
-![Table 1](img\Tab 1.png)
+![Table 1](./img/Tab 1.png)
 
 #### 4.2.1 Direct Noise (DN)
 
