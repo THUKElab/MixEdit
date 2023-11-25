@@ -8,7 +8,7 @@ The repository contains the codes and data for our EMNLP-2023 Paper: [MixEdit: R
 
 MixEdit is a data augmentation approach that *strategically* and *dynamically* augments realistic data, without requiring extra monolingual corpora.
 
-![](img\MixEdit.svg)
+![Figure 1](img\MixEdit.svg)
 
 ## 2 Features
 
@@ -35,33 +35,30 @@ cd ./MixEdit
 ```python
 MixEdit                             # Root
 ├── augmenters                      # GEC data augmentation methods
-└── ckpts							# Checkpoints
-└── metrics							# Metrics used to evaluate GEC systems
+└── metrics                         # Metrics used to evaluate GEC systems
 └── models                     
-	└── bart						# BART-based MixEdit model
-		└── preprocess				# Proprocessed data files for fairseq training
-			└── eng
-			└── zho
-        └── exps					# Trained model chekpoints and logs
-        	└── eng
-        	└── zho
+    └── bart                        # BART-based MixEdit model
+    └── preprocess                  # Proprocessed data files for fairseq training
+        └── eng
+        └── zho
+    └── exps                        # Trained model chekpoints and logs
+        └── eng
+        └── zho
     └── interactive.py              # Inference code
     └── train.py                    # Training code
-    └── trainer.py					# Revised from official fairseq trainer.py
+    └── trainer.py                  # Revised from official fairseq trainer.py
 └── processors                      # pre- or post- data processors
-└── scripts                         
-    └── fairseq				        # Training scripts for fairseq training
+└── scripts
+    └── fairseq                     # Training scripts for fairseq training
     └── metrics                     # Evaluation scripts
-└── utils.py						# Some tools
+└── utils.py                        # Some tools
 ```
 
 ## 4 Datasets
 
 ### 4.1 Preprocess Datasets for Fairseq Training
 
-You can directly download the preprocessed binary English and Chinese data files from this [Link](https://cloud.tsinghua.edu.cn/f/f247138bf51b41d78126/). Then, unzip the `preprocess.tar` in `MixEdit/models/bart/preprocess`.
-
-**Note that you must get their licenses first!**
+You can directly download the preprocessed binary English and Chinese data files from this [Link](https://cloud.tsinghua.edu.cn/f/f247138bf51b41d78126/). Then, unzip the `preprocess.tar` in `MixEdit/models/bart/preprocess`. **Note that you must get their licenses first!**
 
 If you want to train new models using your own datasets, please follow the instructions in `scripts/fairseq`.
 
@@ -69,7 +66,7 @@ If you want to train new models using your own datasets, please follow the instr
 
 Traditional GEC data augmentation methods generate pseudo parallel data by corrupting seed corpus.
 
-![](img\Tab 1.png)
+![Table 1](img\Tab 1.png)
 
 #### 4.2.1 Direct Noise (DN)
 
@@ -189,7 +186,7 @@ We do not provide evaluation codes of [ChERRANT](https://github.com/HillZhang199
 
 If you think our work is helpful, please cite our paper:
 
-```json
+```
 @misc{ye2023mixedit,
       title={MixEdit: Revisiting Data Augmentation and Beyond for Grammatical Error Correction}, 
       author={Jingheng Ye and Yinghui Li and Yangning Li and Hai-Tao Zheng},
